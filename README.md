@@ -7,14 +7,23 @@ Hana Sapunxhiu
 
 ## How to Compile
 From the project root directory using `g++` (C++17 or newer):
-To compile the main program:  g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp main.cpp -o tree_explorer
-To compile the student test suite:  g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp tests/student_tests.cpp -o run_tests
+To compile the main program:  g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp main.cpp -o tree_explorer;
+To compile the student test suite:  g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp tests/student_tests.cpp -o run_tests;
 
 ## How to Run
 To run the main program:  ./tree_explorer
 To run the student test suite:  ./run_tests
 
 ## Tests and Results
+
+| Test Case | Input / Tree Structure | Expected Result | Actual Result |
+| :--- | :--- | :--- | :--- |
+| **1. Empty Tree & Null Destruction** | `root = nullptr`, followed by two consecutive `destroyTree(root)` calls | All traversals empty; `nodes = 0`, `leaves = 0`, `height = 0`, `sum = 0`; `root` remains `nullptr` without crashing | Passed (`root == nullptr`, all metrics `0`, traversals empty) |
+| **2. Singleton Tree** | Single root node with value `-4` (`[-4]`) | All 4 traversals return `{-4}`; `nodes = 1`, `leaves = 1`, `height = 1`, `sum = -4`; `destroyTree` sets `root = nullptr` | Passed (all traversals `{-4}`, metrics match, `root == nullptr`) |
+| **3. Four-Node Left & Right Chains** | Left chain: `1 -> L(2) -> L(3) -> L(4)`<br>Right chain: `1 -> R(2) -> R(3) -> R(4)` | Both: `nodes = 4`, `leaves = 1`, `height = 4`, `sum = 10`<br>Left: Pre/Level `{1,2,3,4}`, In/Post `{4,3,2,1}`<br>Right: Pre/In/Level `{1,2,3,4}`, Post `{4,3,2,1}` | Passed (exact traversal sequences and metrics confirmed for both chains) |
+| **4. Duplicates, Zero & Negatives** | 7-node tree (`0` root; `-5`, `0` on L1; `-5`, `2`, `2`, `-1` on L2) | No nodes merged/omitted: `nodes = 7`, `leaves = 4`, `height = 3`, `sum = -7`; traversals include every duplicate in position | Passed (all 7 nodes preserved, `sum = -7`, traversals match) |
+| **5. Immutability & Repeated Calls** | 3-node tree (`10` root, `20` left, `30` right); mutate vector returned by `inorder()` and `levelOrder()` | Modifying returned vectors (`[999, 10, 30, 888]`) does not alter tree nodes or subsequent traversal calls (`{20, 10, 30}`) | Passed (subsequent calls and node values remained unchanged) |
+| **6. Destroy, Rebuild & Re-destroy** | Build 2-node tree (`100, 50`) $\rightarrow$ `destroyTree` $\rightarrow$ rebuild 4-node tree (`7, 8, 9, 10`) $\rightarrow$ `destroyTree` | First destroy resets `root = nullptr` (`nodes = 0`); rebuilt tree yields `nodes = 4`, `leaves = 2`, `height = 3`, `sum = 34`; second destroy resets `root = nullptr` | Passed (clean teardown, accurate metrics after rebuild, clean second teardown) |
 
 ## Analysis Questions
 1. Trace the preorder, inorder, and postorder processing steps for the subtree rooted at 30 in Tree A. Explain why the sequences change while the sum does not.
