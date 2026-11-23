@@ -4,6 +4,34 @@
 Hana Sapunxhiu
 
 ## Design
+This program will construct trees, measure their structures, return their traversal sequences and release their memory safely. 
+
+Implementation plan:
+TreeNode will store an int value and two child points, TreeNode* left and TreeNode* right. In an empty tree base case, where root == nullptr, all traversals will return empty and countNodes, countLeaves, treeHeight and sumValues will return zero.
+The traversal functions will collect results by creating a local vector<int> result and pass it by reference into a recursive helper function that appends node values in the specified order.
+destroyTree will free every allocated node in postorder (children before parent) via delete and sets root = nullptr by reference so the caller is never left with a dangling pointer.
+
+Tree A Specifications: Root: 50
+Parent–Child Connections: 50 -> left 30, right 70; 30 -> left 20, right 40; 70 -> left 60, right 80
+Node count: 7
+Leaf count: 4
+Height: 3
+Sum: 350
+Preorder: 50, 30, 20, 40, 70, 60, 80
+Inorder: 20, 30, 40, 50, 60, 70, 80
+Postorder: 20, 40, 30, 60, 80, 70, 50
+Level-order: 50, 30, 70, 20, 40, 60, 80
+
+Tree B Specifications: Root: 10
+Parent–Child Connections: 10 -> left 30, right 20; 30 -> right 5; 20 -> right 15
+Node count: 5
+Leaf count: 2
+Height: 3
+Sum: 80
+Preorder: 10, 30, 5, 20, 15
+Inorder: 30, 5, 10, 20, 15
+Postorder: 5, 30, 15, 20, 10
+Level-order: 10, 30, 20, 5, 15
 
 ## How to Compile
 From the project root directory using `g++` (C++17 or newer):
@@ -54,3 +82,4 @@ To run the student test suite:  ./run_tests
 
 
 ## AI Use
+The functions in TreeNode.cpp were first written using the examples in canvas. The AI Gemini was used to check the work for any logic bugs or inconsistencies. Gemini also helped format main.cpp output and write student_tests.cpp, using assert() to test the conditions of the trees. It was mainly used to reinforce my understanding of the recursive helper functions needed in TreeNode.cpp.
