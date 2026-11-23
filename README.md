@@ -1,12 +1,23 @@
 # CIS-277 Assignment 4: Binary Tree Explorer
 
 ## Student
+Hana Sapunxhiu
 
 ## Design
 
 ## How to Compile
+Compile the main program or the student test suite from the project root directory using `g++` (C++17 or newer):
+# Compile the main program
+g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp main.cpp -o tree_explorer
+# Compile the student test suite
+g++ -std=c++17 -Wall -Wextra TreeExplorer.cpp tests/student_tests.cpp -o run_tests
 
 ## How to Run
+# Run the main program
+./tree_explorer
+
+# Run the student test suite
+./run_tests
 
 ## Tests and Results
 
